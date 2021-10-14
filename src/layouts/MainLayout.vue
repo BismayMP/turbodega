@@ -1,117 +1,86 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header v-show="showCollapse" elevated class="bg-trasnparent">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title>Header</q-toolbar-title>
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftDrawerOpen"
+      v-model="drawer"
       show-if-above
-      bordered
+      :breakpoint="400"
+      class="drawer-root"
     >
+      <div class="bg-transparent">
+        <div class="text-weight-bold flex justify-center">
+          <h4>TURBODEGA</h4>
+        </div>
+      </div>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in links" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <q-page padding>
+        <p v-for="n in 15" :key="n">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
+          praesentium molestias a adipisci, dolore vitae odit, quidem
+          consequatur optio voluptates asperiores pariatur eos numquam rerum
+          delectus commodi perferendis voluptate?
+        </p>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue'
+import EssentialLink from 'components/EssentialLink.vue';
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
+    title: 'Registro de ventas',
     icon: 'school',
-    link: 'https://quasar.dev'
+    link: '/sales',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
+    title: 'Reporte de mi negocio',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: '/my-store',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
+    title: 'Quiero comprar',
     icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    link: '/store',
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
+    title: 'Mi inventario',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    link: '/my-products',
   },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
 
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
-
   components: {
-    EssentialLink
+    EssentialLink,
   },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const drawer = ref(false);
+    const showCollapse = ref(false);
 
     return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      drawer,
+      showCollapse,
+      links: linksList,
+      toggleDrawer() {
+        drawer.value = !drawer.value;
+      },
+    };
+  },
+});
 </script>
