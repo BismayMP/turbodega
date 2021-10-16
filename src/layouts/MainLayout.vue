@@ -1,16 +1,16 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header v-show="showCollapse" elevated class="bg-trasnparent">
+    <q-header v-show="true" elevated class="bg-trasnparent show-collapse">
       <q-toolbar>
-        <q-toolbar-title>Header</q-toolbar-title>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-toolbar-title>TURBODEGA</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="drawer"
       show-if-above
-      :breakpoint="400"
+      :breakpoint="960"
       class="drawer-root"
     >
       <div class="bg-transparent">
@@ -69,13 +69,16 @@ export default defineComponent({
   components: {
     EssentialLink,
   },
+
   setup() {
     const drawer = ref(false);
-    const showCollapse = ref(false);
+
+    if (window.outerWidth > 1024) {
+      drawer.value = false;
+    }
 
     return {
       drawer,
-      showCollapse,
       links: linksList,
       toggleDrawer() {
         drawer.value = !drawer.value;
