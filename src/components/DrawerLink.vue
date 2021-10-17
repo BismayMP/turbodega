@@ -1,11 +1,10 @@
 <template>
-  <q-item clickable tag="a" :href="link">
-    <q-item-section v-if="icon" avatar>
+  <q-item clickable tag="a" :href="link" class="drawer-link">
+    <q-item-section v-if="icon" avatar class="drawer-icon">
       <q-icon :name="icon" />
     </q-item-section>
-
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label class="drawer-text">{{ title }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -14,7 +13,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: 'DrawerLink',
   props: {
     title: {
       type: String,

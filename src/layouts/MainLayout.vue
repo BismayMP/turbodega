@@ -1,16 +1,16 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header v-show="showCollapse" elevated class="bg-trasnparent">
+    <q-header v-show="true" elevated class="bg-trasnparent show-collapse">
       <q-toolbar>
-        <q-toolbar-title>Header</q-toolbar-title>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-toolbar-title>TURBODEGA</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="drawer"
       show-if-above
-      :breakpoint="400"
+      :breakpoint="960"
       class="drawer-root"
     >
       <div class="bg-transparent">
@@ -19,25 +19,18 @@
         </div>
       </div>
       <q-list>
-        <EssentialLink v-for="link in links" :key="link.title" v-bind="link" />
+        <DrawerLink v-for="link in links" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <q-page padding>
-        <p v-for="n in 15" :key="n">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
-          praesentium molestias a adipisci, dolore vitae odit, quidem
-          consequatur optio voluptates asperiores pariatur eos numquam rerum
-          delectus commodi perferendis voluptate?
-        </p>
-      </q-page>
-    </q-page-container>
+    <q-page- algin-start>
+      <router-view />
+    </q-page->
   </q-layout>
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
+import DrawerLink from 'components/DrawerLink.vue';
 
 const linksList = [
   {
@@ -67,15 +60,18 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'MainLayout',
   components: {
-    EssentialLink,
+    DrawerLink,
   },
+
   setup() {
     const drawer = ref(false);
-    const showCollapse = ref(false);
+
+    if (window.outerWidth > 1024) {
+      drawer.value = false;
+    }
 
     return {
       drawer,
-      showCollapse,
       links: linksList,
       toggleDrawer() {
         drawer.value = !drawer.value;
