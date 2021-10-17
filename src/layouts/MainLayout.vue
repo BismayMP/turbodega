@@ -19,25 +19,18 @@
         </div>
       </div>
       <q-list>
-        <EssentialLink v-for="link in links" :key="link.title" v-bind="link" />
+        <DrawerLink v-for="link in links" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <q-page padding>
-        <p v-for="n in 15" :key="n">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
-          praesentium molestias a adipisci, dolore vitae odit, quidem
-          consequatur optio voluptates asperiores pariatur eos numquam rerum
-          delectus commodi perferendis voluptate?
-        </p>
-      </q-page>
-    </q-page-container>
+    <q-page- algin-start>
+      <router-view />
+    </q-page->
   </q-layout>
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
+import DrawerLink from 'components/DrawerLink.vue';
 
 const linksList = [
   {
@@ -67,7 +60,7 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'MainLayout',
   components: {
-    EssentialLink,
+    DrawerLink,
   },
 
   setup() {
